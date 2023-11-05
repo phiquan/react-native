@@ -1,6 +1,7 @@
 import {
   Image,
   ImageSourcePropType,
+  InputModeOptions,
   NativeSyntheticEvent,
   Pressable,
   StyleSheet,
@@ -9,9 +10,9 @@ import {
   TextInputFocusEventData,
   View,
 } from 'react-native';
-import {palette} from '../../theme/palette';
+import {palette} from '../theme/palette';
 
-export const CustomTextInput = ({
+export const AppTextInput = ({
   title,
   hintText,
   suffixIcon,
@@ -21,6 +22,8 @@ export const CustomTextInput = ({
   onBlur,
   value,
   onPressSuffix,
+  secureTextEntry,
+  inputMode,
 }: {
   value?: string;
   title?: string;
@@ -31,10 +34,12 @@ export const CustomTextInput = ({
   onChangeValue: (e: string) => void;
   onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
   onPressSuffix?: () => void;
-}) => {
+  secureTextEntry?: boolean;
+  inputMode?: InputModeOptions;
+}): JSX.Element => {
   return (
     <View>
-      {title && <Text>{title}</Text>}
+      {title && <Text style={{fontWeight:'400'}}>{title}</Text>}
       {title && <View style={{height: 4}} />}
       <View style={style.row}>
         <TextInput
@@ -43,6 +48,8 @@ export const CustomTextInput = ({
           style={[style.textinput, valid && {borderColor: palette.error}]}
           onChangeText={onChangeValue}
           onBlur={onBlur}
+          secureTextEntry={secureTextEntry ?? false}
+          inputMode={inputMode ?? 'text'}
         />
         {suffixIcon && (
           <Pressable onPress={onPressSuffix}>

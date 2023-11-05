@@ -10,7 +10,7 @@ import {Filter} from './filter';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const HomePage = ({navigation}: {navigation: any}) => {
+export const HomePage = ({navigation}: {navigation: any}) => {
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({

@@ -2,7 +2,7 @@ import {Formik} from 'formik';
 import {StyleSheet, View} from 'react-native';
 import * as yup from 'yup';
 import {Button} from '@rneui/base';
-import {CustomTextInput} from './customTextInput';
+import {AppTextInput} from '../../common/appTextInput';
 
 export const ForgotPass = () => {
   return (
@@ -12,7 +12,7 @@ export const ForgotPass = () => {
         console.log(value);
       }}
       validationSchema={yup.object().shape({
-        email: yup.string().email("This email was invalid").required(),
+        email: yup.string().email('This email was invalid').required(),
       })}>
       {({
         values,
@@ -25,7 +25,7 @@ export const ForgotPass = () => {
         setFieldValue,
       }) => (
         <View style={style.container}>
-          <CustomTextInput
+          <AppTextInput
             value={values.email}
             onChangeValue={handleChange('email')}
             title="Email"
@@ -35,6 +35,7 @@ export const ForgotPass = () => {
             valid={errors.email !== undefined && !touched.email}
             onBlur={() => setFieldTouched('email')}
             onPressSuffix={() => setFieldValue('email', '')}
+            inputMode='email'
           />
           <View style={{flex: 1}} />
           <Button

@@ -135,7 +135,12 @@ const Custombutton = ({
 
 const Custompasscodevalue = ({active}: {active?: boolean}): JSX.Element => {
   return (
-    <View style={[style.passcodevalue, active && style.passcodeValueActive]} />
+    <View
+      style={[
+        style.passcodevalue,
+        active && {backgroundColor: palette.primary},
+      ]}
+    />
   );
 };
 
@@ -164,13 +169,6 @@ const style = StyleSheet.create({
     borderRadius: 10,
     borderColor: palette.primary,
     borderWidth: 2,
-    marginHorizontal: 8,
-  },
-  passcodeValueActive: {
-    height: 15,
-    width: 15,
-    borderRadius: 10,
-    backgroundColor: palette.primary,
     marginHorizontal: 8,
   },
 });

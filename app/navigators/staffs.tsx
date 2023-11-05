@@ -1,5 +1,8 @@
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import {palette} from '../../theme/palette';
+import {palette} from '../theme/palette';
+import {Button} from '@rneui/base';
+import {useDispatch} from 'react-redux';
+import {loginSlice} from '../shared/redux/redux_login';
 
 export const Home = (): JSX.Element => {
   return (
@@ -18,9 +21,17 @@ export const Projet = (): JSX.Element => {
 };
 
 export const Setting = (): JSX.Element => {
+  const dispatch = useDispatch();
+  const {removeToken} = loginSlice.actions;
   return (
     <View style={style.container}>
-      <Text>Setting</Text>
+      <Button
+        title={'LOG OUT'}
+        type="clear"
+        onPress={() => {
+          dispatch(removeToken());
+        }}
+      />
     </View>
   );
 };
@@ -85,26 +96,31 @@ export const Staffs = (): JSX.Element => {
           title="ID"
           listContent={staff.map(item => item.id)}
           padding={24}
+          key={'ID'}
         />
         <CustomColumn
           title="Full name"
           listContent={staff.map(item => item.fullName)}
           alignLeft={true}
+          key={'FullName'}
         />
         <CustomColumn
           title="Role"
           listContent={staff.map(item => item.role)}
           padding={36}
+          key={'Role'}
         />
         <CustomColumn
           title="Type"
           listContent={staff.map(item => item.type)}
           padding={36}
+          key={'Type'}
         />
         <CustomColumn
           title="Team"
           listContent={staff.map(item => item.team)}
           padding={36}
+          key={'Team'}
         />
       </View>
     </ScrollView>
@@ -144,7 +160,8 @@ const CustomColumn = ({
               style.content,
               padding !== undefined && {paddingHorizontal: padding},
               alignLeft && {alignItems: 'flex-start'},
-            ]}>
+            ]}
+            key={Math.random()}>
             <Text>{item}</Text>
           </View>
         ))}

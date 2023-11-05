@@ -1,29 +1,26 @@
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {Image, ImageSourcePropType} from 'react-native';
+import {palette} from '../theme/palette';
 import {Home, Projet, Setting, Staffs} from './staffs';
-import {ImageSourcePropType, View} from 'react-native';
-import {Button, Image} from '@rneui/base';
-import {palette} from '../../theme/palette';
-import {Filter} from './filter';
+import {Button} from '@rneui/base';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
-
-export const HomePage = ({navigation}: {navigation: any}) => {
+export const AppTab = ({navigation}: {navigation: any}) => {
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
         tabBarIcon: ({focused, color, size}) => {
           let name: ImageSourcePropType;
           if (route.name === 'Home') {
-            name = require('./Home.png');
+            name = require('./icons/Home.png');
           } else if (route.name === 'Project') {
-            name = require('./Project.png');
+            name = require('./icons/Project.png');
           } else if (route.name === 'Staff') {
-            name = require('./Staff.png');
+            name = require('./icons/Staff.png');
           } else {
-            name = require('./Setting.png');
+            name = require('./icons/Setting.png');
           }
           return (
             <Image
@@ -49,7 +46,7 @@ export const HomePage = ({navigation}: {navigation: any}) => {
           headerRight: () => (
             <Button type="clear" onPress={() => navigation.navigate('Filter')}>
               <Image
-                source={require('./Filter.png')}
+                source={require('./icons/Filter.png')}
                 style={{height: 24, width: 24}}
               />
             </Button>
@@ -58,20 +55,5 @@ export const HomePage = ({navigation}: {navigation: any}) => {
       />
       <Tab.Screen name="Setting" component={Setting} />
     </Tab.Navigator>
-  );
-};
-
-export const NavigationScreen = (): JSX.Element => {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="HomePage"
-          component={HomePage}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen name="Filter" component={Filter} />
-      </Stack.Navigator>
-    </NavigationContainer>
   );
 };

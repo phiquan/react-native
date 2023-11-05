@@ -24,6 +24,7 @@ export const AppTextInput = ({
   onPressSuffix,
   secureTextEntry,
   inputMode,
+  spacing,
 }: {
   value?: string;
   title?: string;
@@ -36,10 +37,11 @@ export const AppTextInput = ({
   onPressSuffix?: () => void;
   secureTextEntry?: boolean;
   inputMode?: InputModeOptions;
+  spacing?: number;
 }): JSX.Element => {
   return (
-    <View>
-      {title && <Text style={{fontWeight:'400'}}>{title}</Text>}
+    <View style={{marginBottom: spacing}}>
+      {title && <Text style={{fontWeight: '400'}}>{title}</Text>}
       {title && <View style={{height: 4}} />}
       <View style={style.row}>
         <TextInput

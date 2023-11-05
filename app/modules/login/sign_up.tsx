@@ -6,6 +6,7 @@ import {
   View,
   Pressable,
   Dimensions,
+  Keyboard,
 } from 'react-native';
 import {palette} from '../../theme/palette';
 import {Button} from '@rneui/base';
@@ -40,6 +41,17 @@ export const SignUp = ({navigation}: {navigation: any}) => {
       }}
       validationSchema={yup.object().shape({
         email: yup.string().email().required(),
+        passWord: yup
+          .string()
+          .matches(/\w*[a-z]\w*/, 'Password must have a lowecase')
+          .matches(/\w*[A-Z]\w*/, 'Password must have a uppercase')
+          .matches(/\d/, 'Password must have a number')
+          .min(8, ({min}) => `Password must be at least ${min} characters`)
+          .required(),
+        confirmPassWord: yup
+          .string()
+          .oneOf([yup.ref('passWord')], 'Passwords do not match')
+          .required('Confirm password is required'),
       })}>
       {({
         values,
@@ -51,9 +63,10 @@ export const SignUp = ({navigation}: {navigation: any}) => {
         setFieldTouched,
         setFieldValue,
       }) => (
-        <View style={style.view}>
+        <View style={style.view} onTouchStart={() => Keyboard.dismiss()}>
           <AppTextInput
             title="Email"
+            hintText='Email...'
             value={values.email}
             onChangeValue={handleChange('email')}
             onBlur={() => setFieldTouched('email')}
@@ -61,7 +74,7 @@ export const SignUp = ({navigation}: {navigation: any}) => {
             onPressSuffix={() => setFieldValue('email', '')}
             valid={errors.email !== undefined}
             validError={errors.email}
-            inputMode='email'
+            inputMode="email"
           />
           <View style={{height: 12}} />
           <AppTextInput
@@ -73,6 +86,8 @@ export const SignUp = ({navigation}: {navigation: any}) => {
             onBlur={() => setFieldTouched('passWord')}
             secureTextEntry={isShowPassWord}
             onPressSuffix={() => setIsShowPassWord(pre => !pre)}
+            valid={errors.passWord !== undefined}
+            validError={errors.passWord}
           />
           <View style={{height: 12}} />
           <AppText
@@ -90,6 +105,8 @@ export const SignUp = ({navigation}: {navigation: any}) => {
             onBlur={() => setFieldTouched('confirmPassWord')}
             secureTextEntry={isShowPassWordCofirm}
             onPressSuffix={() => setIsShowPassWordCofirm(pre => !pre)}
+            valid={errors.confirmPassWord !== undefined}
+            validError={errors.confirmPassWord}
           />
           <View style={{height: 12}} />
           <Button

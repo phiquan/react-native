@@ -1,5 +1,5 @@
 import {Formik} from 'formik';
-import {Dimensions, StyleSheet, View} from 'react-native';
+import {Dimensions, Keyboard, StyleSheet, View} from 'react-native';
 import {AppText} from '../../common/appText';
 import {AppTextInput} from '../../common/appTextInput';
 import * as yup from 'yup';
@@ -29,7 +29,7 @@ export const SignUpVerify = ({navigation}: {navigation: any}): JSX.Element => {
         otp: yup.number().required(),
       })}>
       {({values, handleChange, handleBlur, handleSubmit, errors, isValid}) => (
-        <View style={style.container}>
+        <View style={style.container} onTouchStart={() => Keyboard.dismiss()}>
           <AppText
             text="Enter the OTP that sent to your email"
             size={14}

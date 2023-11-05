@@ -16,6 +16,7 @@ export const loginSlice = createSlice({
     },
     removeToken: state => {
       state.token = '';
+      setToken('')
       return state;
     },
   },

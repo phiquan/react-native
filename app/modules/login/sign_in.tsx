@@ -1,4 +1,4 @@
-import {StyleSheet, View} from 'react-native';
+import {Keyboard, StyleSheet, View} from 'react-native';
 import {Button} from '@rneui/base';
 import {Formik} from 'formik';
 import {AppTextInput} from '../../common/appTextInput';
@@ -19,6 +19,10 @@ export const SignIn = ({navigation}: {navigation: any}) => {
       }}
       validationSchema={yup.object().shape({
         email: yup.string().email().required(),
+        passWord: yup
+          .string()
+          .min(8, ({min}) => `Password must be at least ${min} characters`)
+          .required(),
       })}>
       {({
         values,
@@ -26,11 +30,10 @@ export const SignIn = ({navigation}: {navigation: any}) => {
         handleChange,
         setFieldValue,
         setFieldTouched,
-        touched,
         isValid,
         submitForm,
       }) => (
-        <View style={style.container}>
+        <View style={style.container} onTouchStart={() => Keyboard.dismiss()}>
           <AppTextInput
             title="Email"
             value={values.email}
@@ -53,6 +56,8 @@ export const SignIn = ({navigation}: {navigation: any}) => {
             onBlur={() => setFieldTouched('passWord')}
             secureTextEntry={secureTextPassword}
             onPressSuffix={() => setSecureTextPassword(pre => !pre)}
+            valid={errors.passWord !== undefined}
+            validError={errors.passWord}
           />
           <View style={{height: 12}} />
           <Button

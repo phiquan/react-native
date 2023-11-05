@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {palette} from '../../theme/palette';
 import {Button, Image} from '@rneui/base';
+import {AppTextInput} from '../../common/appTextInput';
 
 export const Filter = ({navigation}: {navigation: any}) => {
   return (
@@ -22,14 +23,34 @@ export const Filter = ({navigation}: {navigation: any}) => {
       onSubmit={value => console.log()}>
       {({values, handleChange, setFieldTouched, handleSubmit}) => (
         <View style={style.container}>
-          <CustomInputText
+          <AppTextInput
             title="ID/Full Name"
             hintText="Search here..."
-            icon={require('./Search.png')}
+            suffixIcon={require('./Search.png')}
+            onChangeValue={() => {}}
+            spacing={22}
           />
-          <CustomInputText title="Role" hintText="#Member" />
-          <CustomInputText title="Type" hintText="#FE" />
-          <CustomInputText title="Team" hintText="#LeaderID" />
+          <AppTextInput
+            title="Role"
+            hintText="#Member"
+            suffixIcon={require('./Dropdown.png')}
+            onChangeValue={() => {}}
+            spacing={22}
+          />
+          <AppTextInput
+            title="Type"
+            hintText="#FE"
+            suffixIcon={require('./Dropdown.png')}
+            onChangeValue={() => {}}
+            spacing={22}
+          />
+          <AppTextInput
+            title="Team"
+            hintText="#LeaderID"
+            suffixIcon={require('./Dropdown.png')}
+            onChangeValue={() => {}}
+            spacing={22}
+          />
           <View style={{flex: 1}} />
           <Button
             title="Apply"

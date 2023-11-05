@@ -4,12 +4,12 @@ import * as yup from 'yup';
 import {Button} from '@rneui/base';
 import {AppTextInput} from '../../common/appTextInput';
 
-export const ForgotPass = () => {
+export const ForgotPass = ({navigation}: {navigation: any}) => {
   return (
     <Formik
       initialValues={{email: ''}}
       onSubmit={value => {
-        console.log(value);
+        navigation.goBack();
       }}
       validationSchema={yup.object().shape({
         email: yup.string().email('This email was invalid').required(),

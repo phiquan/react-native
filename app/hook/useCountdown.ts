@@ -1,28 +1,65 @@
-import {useEffect, useState} from 'react';
+import {delay} from '@reduxjs/toolkit/dist/utils';
+import {useEffect, useRef, useState} from 'react';
+import {AppState, AppStateStatus} from 'react-native';
 
-export const useCountDown = (initalStart: boolean, initalDuration?: number) => {
-  let durationDefault: number = 30;
-  const [isStart, setIsStart] = useState(initalStart);
-  const [duration, setDuration] = useState(initalDuration ?? durationDefault);
+export const useCountDown = (
+  isStartImmediately: boolean = true,
+  initialDuration: number = 30,
+) => {
+  const [isStart, setIsStart] = useState<boolean>(isStartImmediately);
+  const [countDown, setCountDown] = useState<number>(initialDuration);
+  const timer = useRef<NodeJS.Timer>();
+  const appState = useRef(AppState.currentState);
+  let backgroundAt: number = 0;
 
-  useEffect(() => {
-    if (isStart) {
-      setTimeout(() => setDuration(previousState => previousState - 1), 1000);
-      if (duration === 0) {
-        setIsStart(false);
+  const handleAppStateListener = (nextAppState: AppStateStatus) => {
+    if (nextAppState === 'background') {
+      backgroundAt = Date.now();
+    } else if (nextAppState.match(/inactive|active/)) {
+      if (backgroundAt !== 0) {
+        setCountDown(prev =>
+          Math.max(0, prev - Math.floor((Date.now() - backgroundAt) / 1000)),
+        );
+        backgroundAt = 0;
       }
     }
-  }, [duration]);
+    return (appState.current = nextAppState);
+  };
 
-  const reCountDown = (duration?: number) => {
+  useEffect(() => {
+    const subscription = AppState.addEventListener(
+      'change',
+      handleAppStateListener,
+    );
+
+    if (isStart) {
+      timer.current = setInterval(() => {
+        setCountDown(previous => {
+          if (previous === 0) {
+            setIsStart(false);
+            clearInterval(Number(timer.current));
+            return 0;
+          }
+          return previous - 1;
+        });
+      }, 1000);
+      return () => {
+        clearInterval(Number(timer.current));
+        subscription.remove();
+      };
+    }
+  }, [isStart]);
+
+  const start = (countDownDuration: number = initialDuration) => {
     if (isStart === false) {
-      setDuration(duration ?? initalDuration ?? durationDefault);
+      setCountDown(countDownDuration);
       setIsStart(true);
     }
   };
+
   return {
-    isStart: isStart,
-    duration: duration,
-    reCountDown: reCountDown,
+    isRunning: isStart,
+    value: countDown,
+    start: start,
   };
 };

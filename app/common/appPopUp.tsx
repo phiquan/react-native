@@ -35,7 +35,7 @@ export const AppPopUp = ({
                 alignItems: 'flex-start',
               }}>
               <Text style={styles.modalTextTitle}>{title}</Text>
-              <Text style={styles.modalTextContent} >{content}</Text>
+              <Text style={styles.modalTextContent}>{content}</Text>
             </View>
             <View
               style={{
@@ -62,12 +62,12 @@ export const AppPopUp = ({
 
 const styles = StyleSheet.create({
   centeredView: {
-    height:Dimensions.get('screen').height,
-    width:Dimensions.get('screen').width,
+    height: Dimensions.get('screen').height,
+    width: Dimensions.get('screen').width,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 22,
-    position:'absolute'
+    position: 'absolute',
   },
   modalView: {
     margin: 20,

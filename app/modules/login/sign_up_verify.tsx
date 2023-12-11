@@ -9,7 +9,7 @@ import {LoadingAnimation} from '../../study/loader';
 import {useEffect, useMemo, useState} from 'react';
 import {AppPopUp} from '../../common/appPopUp';
 export const SignUpVerify = ({navigation}: {navigation: any}): JSX.Element => {
-  const {isRunning, value, start} = useCountDown(true);
+  const {isStart, duration, reCountDown} = useCountDown(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isPopUp, setIsPopUp] = useState(false);
   useEffect(() => {
@@ -48,29 +48,27 @@ export const SignUpVerify = ({navigation}: {navigation: any}): JSX.Element => {
           />
           <View style={style.spacing} />
           <Button
-            title={isRunning ? `Resend after ${value}s` : 'Resend'}
+            title={isStart ? `Resend after ${duration}s` : 'Resend'}
             type="clear"
-            disabled={isRunning}
+            disabled={isStart}
             titleStyle={{fontSize: 14}}
-            onPress={() => start()}
+            onPress={() => reCountDown()}
           />
           <View style={{flex: 1}} />
-
+          
           <Button
             title="Verify"
             disabled={!isValid}
             onPress={() => handleSubmit()}
           />
           {isLoading && <LoadingAnimation styleView={style.loading} />}
-          {isPopUp && (
-            <AppPopUp
-              openPopUp={isPopUp}
-              title="Registration Successful"
-              content="Your registration has been successfully completed. You are now a member of our platform. Enjoy seamless access to all the features and benefits we offer."
-              titleClosePopUp="Sign In"
-              onClosePopUp={() => navigation.popToTop()}
-            />
-          )}
+          {isPopUp && <AppPopUp
+            openPopUp={isPopUp}
+            title="Registration Successful"
+            content="Your registration has been successfully completed. You are now a member of our platform. Enjoy seamless access to all the features and benefits we offer."
+            titleClosePopUp="Sign In"
+            onClosePopUp={() => navigation.popToTop()}
+          />}
         </View>
       )}
     </Formik>

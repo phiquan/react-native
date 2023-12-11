@@ -13,7 +13,7 @@ import {Button} from '@rneui/base';
 import {Formik} from 'formik';
 import * as yup from 'yup';
 import {useEffect, useState} from 'react';
-import {LoadingAnimation} from '../../common/loader';
+import {LoadingAnimation} from '../../study/loader';
 import {AppTextInput} from '../../common/appTextInput';
 import {AppText} from '../../common/appText';
 

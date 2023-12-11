@@ -8,6 +8,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import {Launch} from '../modules/login/launch';
 import {LoginPageStack} from './login_stack';
 import {HomePageStack} from './home_page_stack';
+import {StoreContext, StoreModel} from '../study/mobx-state-tree';
+import {observer} from 'mobx-react-lite';
 
 const Stack = createNativeStackNavigator();
 export const AuthenticateStack = () => {

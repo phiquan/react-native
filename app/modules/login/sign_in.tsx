@@ -1,11 +1,12 @@
 import {Keyboard, StyleSheet, View} from 'react-native';
-import {Button} from '@rneui/base';
+import {Button, Input} from '@rneui/base';
 import {Formik} from 'formik';
 import {AppTextInput} from '../../common/appTextInput';
 import * as yup from 'yup';
 import {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {loginSlice} from '../../shared/redux/redux_login';
+import Clipboard from '@react-native-clipboard/clipboard';
 
 export const SignIn = ({navigation}: {navigation: any}) => {
   const [secureTextPassword, setSecureTextPassword] = useState(true);

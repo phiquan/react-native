@@ -3,11 +3,12 @@ import {palette} from '../theme/palette';
 import {Button} from '@rneui/base';
 import {useDispatch} from 'react-redux';
 import {loginSlice} from '../shared/redux/redux_login';
+import CheckoutScreen from '../study/stripe';
 
 export const Home = (): JSX.Element => {
   return (
     <View style={style.container}>
-      <Text>Home</Text>
+      <CheckoutScreen />
     </View>
   );
 };

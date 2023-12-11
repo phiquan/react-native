@@ -19,9 +19,9 @@ const Popup = () => {
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          // Alert.alert('Modal has been closed.');
-          // setModalVisible(!modalVisible);
-          // console.log('sds')
+          Alert.alert('Modal has been closed.');
+          setModalVisible(!modalVisible);
+          console.log('sds')
         }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>

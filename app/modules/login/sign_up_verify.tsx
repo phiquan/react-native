@@ -5,7 +5,7 @@ import {AppTextInput} from '../../common/appTextInput';
 import * as yup from 'yup';
 import {Button} from '@rneui/base';
 import {useCountDown} from '../../hook/useCountdown';
-import {LoadingAnimation} from '../../common/loader';
+import {LoadingAnimation} from '../../study/loader';
 import {useEffect, useMemo, useState} from 'react';
 import {AppPopUp} from '../../common/appPopUp';
 export const SignUpVerify = ({navigation}: {navigation: any}): JSX.Element => {
